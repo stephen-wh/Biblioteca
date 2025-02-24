@@ -1,0 +1,14 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h2>Desea eliminar el registro del libro {{ libro.nombre }}</h2>
+    <button class="btn btn-danger" type="submit">
+    Si eliminar
+    </button>
+    <a class="btn btn-default" href="{% url 'libro:libro_listar' %}">
+        cancelar
+    </a>
+</form>
+{% endblock %}

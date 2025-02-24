@@ -1,0 +1,63 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center align-content-center bg-dark px-5 py-2 text-white">
+    <h2> Lista de Autores</h2>
+    {% if request.path = "/autor/f_listar" %}
+        <a class="btn btn-success" href="{% url 'autor:f_autor_crear' %}">
+            <i class="fas fa-plus "></i> Agregar Nuevo Autor
+        </a>
+    {% else %}
+        <a class="btn btn-success" href="{% url 'autor:autor_crear' %}">
+            <i class="fas fa-plus "></i> Agregar Nuevo Autor
+        </a>
+    {% endif %}
+</div>
+
+{% if autores %}
+<table class="table table-hover">
+    <thead class="text-uppercase">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Email</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for autor in autores %}
+            <tr>
+                <th scope="row"> {{ forloop.counter }}</th>
+                <td>{{ autor.nombre }}</td>
+                <td>{{ autor.apellidos }}</td>
+                <td>{{ autor.email }}</td>
+                <td>
+                    {% if request.path = "/autor/f_listar" %}
+                        <a class="btn btn-warning" href="{% url 'autor:f_autor_editar' autor.id %}">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'autor:f_autor_eliminar' autor.id %}">
+                            Eliminar
+                        </a>
+                    {% else %}
+                        <a class="btn btn-warning" href="{% url 'autor:autor_editar' autor.id %}">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'autor:autor_eliminar' autor.id %}">
+                            Eliminar
+                        </a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h5>No hay Registros de Autores</h5>
+{% endif %}
+
+
+{% endblock %}

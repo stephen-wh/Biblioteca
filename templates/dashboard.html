@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Biblioteca {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+</style>
+</head>
+<body>
+    <div class=" h-100vh d-flex">
+        <div class="col-2 text-white pt-5 bg-dark">
+            <h3 class="text-center pt-3 font hove">
+                Biblioteca 
+            </h3>
+            <div class="ml-2 mt-5 d-flex flex-column">
+                <a class="nav-link text-light" href="{% url 'libro:f_libro_listar' %}">
+                    Libros_f
+                </a>
+                <a class=" nav-link text-light" href="{% url 'libro:libro_listar' %}">
+                    Libros
+                </a>
+                <a class="nav-link text-light" href="{% url 'autor:f_autor_listar' %}">
+                    Autores_f
+                </a>
+                <a class="nav-link text-light" href="{% url 'autor:autor_listar' %}">
+                    Autores
+                </a>
+                <a class="nav-link text-light" href="{% url 'editor:f_editor_listar' %}">
+                    Editores_f
+                </a>
+                <a class="nav-link text-light" href="{% url 'editor:editor_listar' %}">
+                    Editores
+                </a>
+            </div>
+        </div>
+        <div class="col-10 py-5">
+            <div class="container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert-{{ message.level_tag }} p-3 text-center" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% block content %}
+                    <h2>Bienvenido</h2>
+                {% endblock %}
+            </div>
+        </div>
+    <div>
+</body>
+</html>

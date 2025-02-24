@@ -1,0 +1,101 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2> Registro de un Editor</h2>
+</div>
+
+<form method="post" id="solicitud-form" class="shadow-sm">
+    {% csrf_token %}
+    <div class="row">
+        <!-- Formulario Editor (Solicitante) -->
+        <div class="col-md-12"> 
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                {{ form.nombre }}
+                {% if form.nombre.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.nombre.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label class="form-label">website</label>
+                {{ form.website }}
+                {% if form.website.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.website.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">ciudad</label>
+                {{ form.ciudad }}
+                {% if form.ciudad.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.ciudad.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">estado</label>
+                {{ form.estado }}
+                {% if form.estado.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.estado.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <label class="form-label">pais</label>
+                {{ form.pais }}
+                {% if form.pais.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.pais.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label class="form-label">domicilio</label>
+                {{ form.domicilio }}
+                {% if form.domicilio.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.domicilio.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class=" d-flex justify-content-between">
+            <button onclick="window.history.back();" class="px-2 m-2 btn btn-light">
+                Regresar
+            </button>
+            <button class="px-5 btn btn-success m-2" type="submit">Enviar</button>
+        </div>
+        
+</form>
+
+{% endblock %}

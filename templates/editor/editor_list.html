@@ -1,0 +1,65 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center align-content-center bg-dark px-5 py-2 text-white">
+    <h2> Lista de Editores</h2>
+    {% if request.path = "/editor/f_listar" %}
+        <a class="btn btn-success" href="{% url 'editor:f_editor_crear' %}">
+            <i class="fas fa-plus "></i> Agregar Nuevo Editor
+        </a>
+    {% else %}
+        <a class="btn btn-success" href="{% url 'editor:editor_crear' %}">
+            <i class="fas fa-plus "></i> Agregar Nuevo Editor
+        </a>
+    {% endif %}
+</div>
+
+{% if editores %}
+<table class="table table-hover">
+    <thead class="text-uppercase">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Pais</th>
+            <th scope="col">Website</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for editor in editores %}
+            <tr>
+                <th scope="row"> {{ forloop.counter }}</th>
+                <td>{{ editor.nombre }}</td>
+                <td>{{ editor.estado }}</td>
+                <td><a href="{{ editor.website }}">
+                    {{ editor.website }}
+                <a></td>
+                <td>
+                    {% if request.path = "/editor/f_listar" %}
+                        <a class="btn btn-warning" href="{% url 'editor:f_editor_editar' editor.id %}">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'editor:f_editor_eliminar' editor.id %}">
+                            Eliminar
+                        </a>
+                    {% else %}
+                        <a class="btn btn-warning" href="{% url 'editor:editor_editar' editor.id %}">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger" href="{% url 'editor:editor_eliminar' editor.id %}">
+                            Eliminar
+                        </a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h5>No hay Registros de Editores</h5>
+{% endif %}
+
+
+{% endblock %}

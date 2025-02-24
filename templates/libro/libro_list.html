@@ -1,0 +1,61 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center bg-dark px-5 py-3 text-white">
+    <h2 class="m-0"> Nuestros Libros </h2>
+
+    <div class="d-flex">
+        <form method="get" class="d-flex justify-content-center pr-4">
+            <input class="bg-transparent text-white" type="text" name="find" placeholder="Buscar por título o autor" value="{{ request.GET.find }}">
+            <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+                <i class="fas fa-search"></i>
+              </button>
+        </form>
+        {% if request.path == "/libro/f_listar" %}
+            <a class="btn btn-success" href="{% url 'libro:f_libro_crear' %}">
+                <i class="fas fa-plus "></i> Agregar
+            </a>
+        {% else %}
+            <a class="btn btn-success" href="{% url 'libro:libro_crear' %}">
+                <i class="fas fa-plus "></i> Agregar
+            </a>
+        {% endif %}
+    </div>
+
+    
+</div>
+
+<div class="container mt-4">
+    {% if libros %}
+        <div class="row">
+            {% for libro in libros %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if libro.portada %}
+                            <img src="{{ libro.portada.url }}" class="card-img-top" alt="{{ libro.titulo }}" style="height: 300px; object-fit: cover;">
+                        {% else %}
+                            <img src="https://www.tripleq.com/uploads/medium/empty-img.png" class="card-img-top" style="height: 300px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ libro.titulo }}</h5>
+                            <p class="card-text">Publicado el: {{ libro.fecha_publicacion }}</p>
+                            <div class="d-flex justify-content-between">
+                                {% if request.path == "/libro/f_listar" %}
+                                    <a href="{% url 'libro:f_libro_editar' libro.id %}" class="btn btn-warning">Editar</a>
+                                    <a href="{% url 'libro:f_libro_eliminar' libro.id %}" class="btn btn-danger">Eliminar</a>
+                                {% else %}
+                                    <a href="{% url 'libro:libro_editar' libro.id %}" class="btn btn-warning">Editar</a>
+                                    <a href="{% url 'libro:libro_eliminar' libro.id %}" class="btn btn-danger">Eliminar</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h5>No hay Registros de Libros</h5>
+    {% endif %}
+</div>
+{% endblock %}
